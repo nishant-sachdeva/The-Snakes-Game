@@ -42,14 +42,16 @@ int height = 30;
 int x, y, fruitx, fruity, score;
 int jump = 1;
 int sleep_duration = 1;
-int snake_speed = 300;
+int snake_speed = 100;
+// less the more
+int max_score = 400;
 
 int row = 1;
 int col = 1;
 string cursor_at_top_left = "\033[" + to_string(row) + ";" + to_string(col) + "H" ; 
 
 char game_input_character;
-int speed_increment = 5;
+int speed_increment = 20;
 std::condition_variable cv;
 
 // here we add variables for the tail
@@ -265,7 +267,7 @@ void logic()
 
 		placeCursorAtTop();
 
-		if(score == 100 or ntail == max_snake_length)
+		if(score == max_score or ntail == max_snake_length)
 			exit_function();
 	}
 
@@ -325,14 +327,13 @@ int main(int argc, char const *argv[])
 	cout << "GAME STARTS In " << endl;
 	for (int i = 0; i < 5; ++i)
 	{
-		cout << "\r" << 5-1 ; 
-
+		cout << i ; 
+		cout << "\r" ;
 		sleep(1);
 	}
 	cout << endl;
 	system("clear");
 	system("echo new game starting >> logs.txt");
-	system("Color 0A");
 	struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     // width = w.ws_col - 10;
